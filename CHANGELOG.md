@@ -116,6 +116,14 @@
                      ]
                    })
     ```
+* [#38](https://github.com/C-S-D/calcinator/pull/38) - [@KronicDeth](https://github.com/KronicDeth)
+  * Update deps
+    * `ex_doc` `0.18.3`
+    * `excoveralls` `0.8.1`
+    * `junit_formatter` `2.2.0`
+    * `phoenix` `1.3.2`
+    * `postgrex` `0.13.5`
+    * `pryin` `1.5.0`
 
 ### Bug Fixes
 * [#36](https://github.com/C-S-D/calcinator/pull/36) - [@KronicDeth](https://github.com/KronicDeth)
@@ -123,6 +131,7 @@
 * [#37](https://github.com/C-S-D/calcinator/pull/37) - `query_options[:page]` is no longer ignored when passed to `use Calcinator.Resources.Ecto.Repo`'s `list/1` by default.  To restore the old behavior change the paginator to `Calcinator.Resources.Ecto.Repo.Pagination.Ignore`. - [@KronicDeth](https://github.com/KronicDeth)
 * [#41](https://github.com/C-S-D/calcinator/pull/41) - add missing `alias Calcinator.Resources.Sorts` to `Calcinator.Resources` to fix `Sorts.t` being unknown - [@KronicDeth](https://github.com/KronicDeth)
 * [#43](https://github.com/C-S-D/calcinator/pull/43) - Port [@jeffutter](https://github.com/jeffutter) [#34](https://github.com/C-S-D/calcinator/pull/34) to `insert/3` because similar to `update/3`, `insert/3` was missing a change to expect `changeset/2` to return an `{:ok, changeset} | {:error, reason}` tuple instead of a just a `changeset`. - [@KronicDeth](https://github.com/KronicDeth)
+* [#38](https://github.com/C-S-D/calcinator/pull/38) - Remove `scrivener_ecto` as [#37](https://github.com/C-S-D/calcinator/pull/37) ended up not using `scrivener` and instead using `Ecto` directly. - [@KronicDeth](https://github.com/KronicDeth)
 
 ## v5.0.0
 
