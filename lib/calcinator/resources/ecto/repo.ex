@@ -55,6 +55,7 @@ defmodule Calcinator.Resources.Ecto.Repo do
   import Ecto.Query, only: [from: 2, group_by: 3, order_by: 2, where: 3]
 
   alias Alembic.Document
+  alias Calcinator.Resources
   alias Ecto.{Adapters.SQL.Sandbox, Changeset, Query}
 
   # Types
@@ -126,7 +127,8 @@ defmodule Calcinator.Resources.Ecto.Repo do
       ## Calcinator.Resources callbacks
 
       @impl Calcinator.Resources
-      @spec allow_sandbox_access(Resources.sandbox_access_token()) :: :ok | {:error, :sandbox_access_disallowed}
+      @spec allow_sandbox_access(Calcinator.Resources.sandbox_access_token()) ::
+              :ok | {:error, :sandbox_access_disallowed}
       def allow_sandbox_access(token), do: EctoRepoResources.allow_sandbox_access(token)
 
       @impl Calcinator.Resources
@@ -139,7 +141,7 @@ defmodule Calcinator.Resources.Ecto.Repo do
       def delete(changeset, query_options), do: EctoRepoResources.delete(__MODULE__, changeset, query_options)
 
       @impl Calcinator.Resources
-      @spec get(Resources.id(), Resources.query_options()) ::
+      @spec get(Calcinator.Resources.id(), Calcinator.Resources.query_options()) ::
               {:ok, Ecto.Schema.t()} | {:error, :not_found} | {:error, :ownership}
       def get(id, opts), do: EctoRepoResources.get(__MODULE__, id, opts)
 
@@ -149,7 +151,7 @@ defmodule Calcinator.Resources.Ecto.Repo do
       end
 
       @impl Calcinator.Resources
-      @spec list(Resources.query_options()) :: {:ok, [Ecto.Schema.t()], nil} | {:error, :ownership}
+      @spec list(Calcinator.Resources.query_options()) :: {:ok, [Ecto.Schema.t()], nil} | {:error, :ownership}
       def list(query_options), do: EctoRepoResources.list(__MODULE__, query_options)
 
       @impl Calcinator.Resources

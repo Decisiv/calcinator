@@ -11,6 +11,7 @@ defmodule Calcinator do
   alias Alembic.{Document, Fetch, Fetch.Includes, FromJson, ToParams, Source}
   alias Calcinator.{Authorization, Meta}
   alias Calcinator.Authorization.SubjectLess
+  alias Calcinator.Resources
   alias Calcinator.Resources.{Page, Sorts}
 
   # Constants
