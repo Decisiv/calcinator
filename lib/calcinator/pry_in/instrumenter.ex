@@ -222,9 +222,9 @@ if Code.ensure_loaded?(PryIn) do
            args: [
              related_resource,
              %{
+               calcinator: %{__struct__: Calcinator, subject: subject},
                related: %{resource: related_resource},
-               source: %{association: source_association, resource: source_resource},
-               subject: subject
+               source: %{association: source_association, resource: source_resource}
              }
            ],
            callback: callback,
@@ -239,7 +239,7 @@ if Code.ensure_loaded?(PryIn) do
     end
 
     defp put_calcinator_view_context(%{
-           args: [resources, %{subject: subject}],
+           args: [resources, %{calcinator: %{__struct__: Calcinator, subject: subject}}],
            callback: callback = :index,
            prefix: prefix,
            view_module: view_module
@@ -249,7 +249,7 @@ if Code.ensure_loaded?(PryIn) do
     end
 
     defp put_calcinator_view_context(%{
-           args: [resource, %{subject: subject}],
+           args: [resource, %{calcinator: %{__struct__: Calcinator, subject: subject}}],
            callback: callback = :show,
            prefix: prefix,
            view_module: view_module
@@ -266,7 +266,7 @@ if Code.ensure_loaded?(PryIn) do
 
     defp put_calcinator_view_context(options) when is_map(options) do
       if Map.has_key?(options, :prefix) do
-        raise ArgumentError, "Unsupported callback (#{inspect(options[:callback])})"
+        raise ArgumentError, "Unsupported callback (#{inspect(options[:callback])}): #{inspect(options)}"
       else
         options
         |> Map.put(:prefix, unique_prefix("calcinator_view"))

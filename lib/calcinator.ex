@@ -175,7 +175,6 @@ defmodule Calcinator do
   def create(
         state = %__MODULE__{
           ecto_schema_module: ecto_schema_module,
-          subject: subject,
           view_module: view_module
         },
         params
@@ -190,7 +189,7 @@ defmodule Calcinator do
          :ok <- can(state, :create, changeset),
          {:ok, created} <- create_changeset(state, changeset, params) do
       authorized = authorized(state, created)
-      {:ok, view(state, :show, [authorized, %{params: params, subject: subject}])}
+      {:ok, view(state, :show, [authorized, %{calcinator: state, params: params}])}
     end
   end
 
@@ -330,22 +329,28 @@ defmodule Calcinator do
           | {:error, Document.t()}
   def index(
         state = %__MODULE__{
-          ecto_schema_module: ecto_schema_module,
-          subject: subject
+          ecto_schema_module: ecto_schema_module
         },
         params,
         %{base_uri: base_uri}
       ) do
     with :ok <- can(state, :index, ecto_schema_module),
          :ok <- allow_sandbox_access(state, params),
-         {:ok, list, pagination} <- list(state, params) do
+         {:ok, query_options} <- params_to_query_options(state, params),
+         {:ok, list, pagination} <- resources(state, :list, [query_options]) do
       {authorized, authorized_pagination} = authorized(state, list, pagination)
 
       {
         :ok,
         view(state, :index, [
           authorized,
-          %{base_uri: base_uri, pagination: authorized_pagination, params: params, subject: subject}
+          %{
+            base_uri: base_uri,
+            calcinator: state,
+            pagination: authorized_pagination,
+            params: params,
+            query_options: query_options
+          }
         ])
       }
     end
@@ -388,12 +393,12 @@ defmodule Calcinator do
           | {:error, :unauthorized}
           | {:error, Document.t()}
           | {:error, reason :: term}
-  def show(state = %__MODULE__{subject: subject}, params = %{"id" => _}) do
+  def show(state = %__MODULE__{}, params = %{"id" => _}) do
     with :ok <- allow_sandbox_access(state, params),
          {:ok, shown} <- get(state, params),
          :ok <- can(state, :show, shown) do
       authorized = authorized(state, shown)
-      {:ok, view(state, :show, [authorized, %{params: params, subject: subject}])}
+      {:ok, view(state, :show, [authorized, %{calcinator: state, params: params}])}
     end
   end
 
@@ -488,7 +493,7 @@ defmodule Calcinator do
           | {:error, Document.t()}
           | {:error, Ecto.Changeset.t()}
           | {:error, reason :: term}
-  def update(state = %__MODULE__{subject: subject}, params) do
+  def update(state = %__MODULE__{}, params) do
     with :ok <- allow_sandbox_access(state, params),
          {:ok, updatable} <- get(state, params),
          :ok <- can(state, :show, updatable),
@@ -500,7 +505,7 @@ defmodule Calcinator do
       # DO NOT `:ok <- can(state, :show, updated)` because user can update to attributees they can't view, but we need
       # to send back the updated resource
       authorized = authorized(state, updated)
-      {:ok, view(state, :show, [authorized, %{params: params, subject: subject}])}
+      {:ok, view(state, :show, [authorized, %{calcinator: state, params: params}])}
     end
   end
 
@@ -709,17 +714,6 @@ defmodule Calcinator do
     end
   end
 
-  @spec list(t, params) ::
-          {:ok, [Ecto.Schema.t()], Resources.pagination()}
-          | {:error, :timeout}
-          | {:error, Document.t()}
-          | {:error, reason :: term}
-  defp list(calcinator, params) do
-    with {:ok, query_options} <- params_to_query_options(calcinator, params) do
-      resources(calcinator, :list, [query_options])
-    end
-  end
-
   defp params_to_filters_query_option(params), do: {:ok, Map.get(params, "filter", %{})}
 
   defp params_to_meta_query_option(params), do: {:ok, Map.get(params, "meta", %{})}
@@ -749,7 +743,7 @@ defmodule Calcinator do
           | {:error, :unauthorized}
           | {:error, Document.t()}
           | {:error, term}
-  defp related_property(state = %__MODULE__{subject: subject, view_module: view_module}, params, %{
+  defp related_property(state = %__MODULE__{view_module: view_module}, params, %{
          related: related_option,
          source:
            source_option = %{
@@ -765,8 +759,7 @@ defmodule Calcinator do
         view_related_property(state, %{
           params: params,
           related: Map.put(related_option, :resource, authorized_related),
-          source: Map.merge(source_option, %{resource: source, view_module: view_module}),
-          subject: subject
+          source: Map.merge(source_option, %{resource: source, view_module: view_module})
         })
       }
     end
@@ -795,7 +788,7 @@ defmodule Calcinator do
     end)
   end
 
-  defp view_related_property(calcinator = %__MODULE__{subject: subject, view_module: view_module}, %{
+  defp view_related_property(calcinator = %__MODULE__{view_module: view_module}, %{
          params: params,
          related:
            related = %{
@@ -813,10 +806,10 @@ defmodule Calcinator do
     view(calcinator, function_name, [
       resource,
       %{
+        calcinator: calcinator,
         params: params,
         related: related,
-        source: put_in(source.view_module, view_module),
-        subject: subject
+        source: put_in(source.view_module, view_module)
       }
     ])
   end

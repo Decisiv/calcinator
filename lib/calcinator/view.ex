@@ -65,9 +65,9 @@ defmodule Calcinator.View do
   Renders [the relationship iodata](http://jsonapi.org/format/#fetching-relationships) for the given `related`.
   """
   @callback show_relationship(related, %{
+              optional(:calcinator) => Calcinator.t(),
               optional(:params) => params,
               optional(:related) => related,
-              optional(:source) => struct,
-              optional(:subject) => subject
+              optional(:source) => struct
             }) :: iodata
 end
