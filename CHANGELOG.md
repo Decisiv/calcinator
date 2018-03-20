@@ -123,6 +123,7 @@
 * [#37](https://github.com/C-S-D/calcinator/pull/37) - `query_options[:page]` is no longer ignored when passed to `use Calcinator.Resources.Ecto.Repo`'s `list/1` by default.  To restore the old behavior change the paginator to `Calcinator.Resources.Ecto.Repo.Pagination.Ignore`. - [@KronicDeth](https://github.com/KronicDeth)
 * [#41](https://github.com/C-S-D/calcinator/pull/41) - add missing `alias Calcinator.Resources.Sorts` to `Calcinator.Resources` to fix `Sorts.t` being unknown - [@KronicDeth](https://github.com/KronicDeth)
 * [#43](https://github.com/C-S-D/calcinator/pull/43) - Port [@jeffutter](https://github.com/jeffutter) [#34](https://github.com/C-S-D/calcinator/pull/34) to `insert/3` because similar to `update/3`, `insert/3` was missing a change to expect `changeset/2` to return an `{:ok, changeset} | {:error, reason}` tuple instead of a just a `changeset`. - [@KronicDeth](https://github.com/KronicDeth)
+* [#44](https://github.com/C-S-D/calcinator/pull/44) - Allow query params to passthrough for paginate links - [@alexgaribay](https://github.com/alexgaribay), [@KronicDeth](https://github.com/KronicDeth)
 
 ## v5.0.0
 
