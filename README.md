@@ -1,15 +1,9 @@
 # Calcinator
 
-[![CircleCI](https://circleci.com/gh/C-S-D/calcinator.svg?style=svg)](https://circleci.com/gh/C-S-D/calcinator)
-[![Coverage Status](https://coveralls.io/repos/github/C-S-D/calcinator/badge.svg)](https://coveralls.io/github/C-S-D/calcinator)
-[![Code Climate](https://codeclimate.com/github/C-S-D/calcinator/badges/gpa.svg)](https://codeclimate.com/github/C-S-D/calcinator)
-[![Deps Status](https://beta.hexfaktor.org/badge/all/github/C-S-D/calcinator.svg)](https://beta.hexfaktor.org/github/C-S-D/calcinator)
-[![Inline docs](http://inch-ci.org/github/C-S-D/alembic.svg)](http://inch-ci.org/github/C-S-D/alembic)
-
 Calcinator provides a standardized interface for processing JSONAPI request that is transport neutral.  CSD uses it
 for both API controllers and RPC servers.
 
-Calcinator uses [Alembic](https://github.com/C-S-D/alembic) to validate JSONAPI documents passed to the action functions
+Calcinator uses [Alembic](https://github.com/Decisiv/alembic) to validate JSONAPI documents passed to the action functions
 in `Calcinator`.  `Calcinator` supports the JSONAPI CRUD-style actions:
 * `create`
 * `delete`

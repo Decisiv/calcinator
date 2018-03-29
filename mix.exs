@@ -24,7 +24,7 @@ defmodule Calcinator.Mixfile do
         dialyze: :test,
         docs: :test
       ],
-      source_url: "https://github.com/C-S-D/calcinator",
+      source_url: "https://github.com/Decisiv/calcinator",
       start_permanent: Mix.env() == :prod,
       test_coverage: [
         tool: ExCoveralls
@@ -76,7 +76,7 @@ defmodule Calcinator.Mixfile do
   defp deps do
     [
       # JSONAPI document coding
-      {:alembic, "~> 3.4"},
+      {:alembic, "~> 3.4", organization: "decisiv"},
       # Static Analysis
       {:credo, "0.8.10", only: :test},
       # Type checking
@@ -144,10 +144,10 @@ defmodule Calcinator.Mixfile do
       files: ["lib", "mix.exs" | extras()],
       licenses: ["Apache 2.0"],
       links: %{
-        "Docs" => "https://hexdocs.pm/calcinator",
-        "Github" => "https://github.com/C-S-D/calcinator"
+        "Github" => "https://github.com/Decisiv/calcinator"
       },
-      maintainers: ["Luke Imhoff"]
+      maintainers: ["Luke Imhoff <luke.imhoff@dockyard.com>"],
+      organization: "decisiv"
     ]
   end
 end

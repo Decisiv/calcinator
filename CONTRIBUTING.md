@@ -2,7 +2,7 @@
 
 ## Forking
 
-[Fork this repository](https://github.com/C-S-D/calcinator/fork)
+[Fork this repository](https://github.com/Decisiv/calcinator/fork)
 
 ## Development
 
@@ -19,4 +19,4 @@
 
 ## Pull Request
 
-[Create a Pull Request](https://github.com/C-S-D/calcinator/compare/)
+[Create a Pull Request](https://github.com/Decisiv/calcinator/compare/)
