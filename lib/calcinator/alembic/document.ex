@@ -16,6 +16,16 @@ defmodule Calcinator.Alembic.Document do
   end
 
   @doc """
+  Retort returned a 400 JSONAPI error.
+  """
+  @spec bad_request(String.t()) :: Document.t()
+  def bad_request(detail) do
+    detail
+    |> Error.bad_request()
+    |> Error.to_document()
+  end
+
+  @doc """
   Converts an error `reason` from that isn't a standard format (such as those from the backing store) to a
   500 Internal Server Error JSONAPI error, but with `id` set to `id` that is also used in `Logger.error`, so that
   `reason`, which should remain private to limit implementation disclosures that could lead to security issues.

@@ -21,6 +21,12 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     def bad_gateway(conn), do: render_json(conn, Document.bad_gateway(), :bad_gateway)
 
     @doc """
+    Retort returned a 400 JSONAPI error.
+    """
+    @spec bad_request(Conn.t(), String.t()) :: Conn.t()
+    def bad_request(conn, detail), do: render_json(conn, Document.bad_request(detail), :bad_request)
+
+    @doc """
     The resource was deleted
     """
     @spec deleted(Conn.t()) :: Conn.t()
@@ -70,6 +76,7 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     Converts an `{:error, _}` tuple from `Calcinator` into a JSONAPI document and encodes it as the `conn` response.
     """
     def put_calcinator_error(conn, {:error, :bad_gateway}), do: bad_gateway(conn)
+    def put_calcinator_error(conn, {:error, {:bad_request, detail}}), do: bad_request(conn, detail)
     def put_calcinator_error(conn, {:error, {:not_found, parameter}}), do: not_found(conn, parameter)
     def put_calcinator_error(conn, {:error, :ownership}), do: ownership_error(conn)
     def put_calcinator_error(conn, {:error, :sandbox_access_disallowed}), do: sandbox_access_disallowed(conn)
