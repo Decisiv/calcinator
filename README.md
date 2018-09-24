@@ -1,4 +1,3 @@
-# Calcinator (testing push)
 
 [![CircleCI](https://circleci.com/gh/C-S-D/calcinator.svg?style=svg)](https://circleci.com/gh/C-S-D/calcinator)
 [![Coverage Status](https://coveralls.io/repos/github/C-S-D/calcinator/badge.svg)](https://coveralls.io/github/C-S-D/calcinator)
