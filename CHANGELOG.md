@@ -73,7 +73,7 @@
 ## v5.1.0
 
 ### Enhancements
-*
+
 * [#36](https://github.com/C-S-D/calcinator/pull/36) - [@KronicDeth](https://github.com/KronicDeth)
   * Update to latest `mix.lock` format.
   * JaSerializer [supports](https://github.com/vt-elixir/ja_serializer#fields) [sparse fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets), but `Calcinator.JaSerializer.PhoenixView`'s `params_to_render_opts/1` was only copying `params["include"]` to `opts[:include]`, so now copy over both `"include"` and `"fields"` if present.
