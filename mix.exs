@@ -123,8 +123,6 @@ defmodule Calcinator.Mixfile do
   end
 
   defp docs do
-
-  defp docs do
     [
       main: "readme",
       source_url: repo_url(),
@@ -145,7 +143,6 @@ defmodule Calcinator.Mixfile do
       "UPGRADING.md"
     ]
   end
-
 
   defp package do
     [
