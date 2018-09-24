@@ -67,7 +67,7 @@
 
 ### Enhancements
 
-* [#2](https://github.com/Decisiv/calcinator/pull/2) - [@edipox](https://github.com/edipox)
+* [#3](https://github.com/Decisiv/calcinator/pull/3) - [@edipox](https://github.com/edipox)
  * Update `Calcinator.Controller.Error.put_calcinator_error` in order to render a response using the status code from the error whenever is possible.
 
 ## v5.1.0
