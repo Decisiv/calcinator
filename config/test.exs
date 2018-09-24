@@ -7,11 +7,11 @@ config :calcinator, Calcinator.Endpoint,
 config :calcinator, Calcinator.Resources.Ecto.Repo.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "calcinator_test",
-  hostname: "localhost",
+  hostname: System.get_env("DATABASE_HOST") || "localhost",
   loggers: [PryIn.EctoLogger, Ecto.LogEntry],
-  password: "postgres",
+  password: System.get_env("DATABASE_PASSWORD") || "",
   pool: Ecto.Adapters.SQL.Sandbox,
-  username: "postgres"
+  username: System.get_env("DATABASE_USERNAME") || "postgres"
 
 config :calcinator,
   ecto_repos: [Calcinator.Resources.Ecto.Repo.Repo],

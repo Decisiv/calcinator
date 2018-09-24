@@ -77,6 +77,25 @@ if Code.ensure_loaded?(Phoenix.Controller) do
     def put_calcinator_error(conn, {:error, :timeout}), do: gateway_timeout(conn)
     def put_calcinator_error(conn, {:error, :unauthorized}), do: forbidden(conn)
 
+    def put_calcinator_error(
+          conn,
+          {:error, document = %Alembic.Document{errors: errors = [%Alembic.Error{status: status}]}}
+        )
+        when length(errors) == 1 and not is_nil(status) and (is_atom(status) or is_number(status)) do
+      render_json(conn, document, status)
+    end
+
+    def put_calcinator_error(
+          conn,
+          {:error,
+           document = %Alembic.Document{
+             errors: errors = [%Alembic.Error{status: status}]
+           }}
+        )
+        when length(errors) == 1 and is_binary(status) do
+      render_json(conn, document, String.to_integer(status))
+    end
+
     def put_calcinator_error(conn, {:error, document = %Alembic.Document{}}) do
       render_json(conn, document, :unprocessable_entity)
     end

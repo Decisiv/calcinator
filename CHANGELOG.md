@@ -3,6 +3,8 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Changelog](#changelog)
+  - [v5.2.0](#v510)
+    - [Enhancements](#enhancements)
   - [v5.1.0](#v510)
     - [Enhancements](#enhancements)
     - [Bug Fixes](#bug-fixes)
@@ -61,9 +63,17 @@
 
 # Changelog
 
+## v5.2.0
+
+### Enhancements
+
+* [#3](https://github.com/Decisiv/calcinator/pull/3) - [@edipox](https://github.com/edipox)
+ * Update `Calcinator.Controller.Error.put_calcinator_error` in order to render a response using the status code from the error whenever is possible.
+
 ## v5.1.0
 
 ### Enhancements
+
 * [#36](https://github.com/C-S-D/calcinator/pull/36) - [@KronicDeth](https://github.com/KronicDeth)
   * Update to latest `mix.lock` format.
   * JaSerializer [supports](https://github.com/vt-elixir/ja_serializer#fields) [sparse fieldsets](http://jsonapi.org/format/#fetching-sparse-fieldsets), but `Calcinator.JaSerializer.PhoenixView`'s `params_to_render_opts/1` was only copying `params["include"]` to `opts[:include]`, so now copy over both `"include"` and `"fields"` if present.

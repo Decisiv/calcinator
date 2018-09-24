@@ -1012,6 +1012,48 @@ defmodule Calcinator.ControllerTest do
       assert_timeout(conn)
     end
 
+    test "{:error, $Alembic.Document{}}", %{conn: conn} do
+      bad_request_error = %Alembic.Error{
+        detail: "Description",
+        status: "400",
+        title: "Bad Request"
+      }
+
+      error_on_update = {:error, %Alembic.Document{errors: [bad_request_error]}}
+
+      Application.put_env(:calcinator, TestAuthors, update: error_on_update)
+
+      meta = checkout_meta()
+      %TestAuthor{id: id} = Factory.insert(:test_author, name: "Alice")
+
+      conn =
+        Calcinator.Controller.update(
+          conn,
+          %{
+            "id" => id,
+            "data" => %{
+              "type" => "test-authors",
+              "id" => to_string(id),
+              "attributes" => %{
+                "name" => "Eve"
+              }
+            },
+            "meta" => meta
+          },
+          %Calcinator{ecto_schema_module: TestAuthor, resources_module: TestAuthors, view_module: TestAuthorView}
+        )
+
+      assert %{"errors" => errors} = json_response(conn, :bad_request)
+      assert is_list(errors)
+      assert length(errors) == 1
+
+      assert %{
+               "detail" => "Description",
+               "status" => "400",
+               "title" => "Bad Request"
+             } in errors
+    end
+
     test "{:error, :unauthorized}", %{conn: conn} do
       meta = checkout_meta()
       count = 2
