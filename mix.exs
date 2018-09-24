@@ -24,7 +24,7 @@ defmodule Calcinator.Mixfile do
         dialyze: :test,
         docs: :test
       ],
-      source_url: "https://github.com/C-S-D/calcinator",
+      source_url: "https://github.com/Decisiv/calcinator",
       start_permanent: Mix.env() == :prod,
       test_coverage: [
         tool: ExCoveralls
@@ -147,7 +147,7 @@ defmodule Calcinator.Mixfile do
       licenses: ["Apache 2.0"],
       links: %{
         "Docs" => "https://hexdocs.pm/calcinator",
-        "Github" => "https://github.com/C-S-D/calcinator"
+        "Github" => "https://github.com/Decisiv/calcinator"
       },
       maintainers: ["Luke Imhoff"]
     ]
