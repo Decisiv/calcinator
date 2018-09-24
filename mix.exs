@@ -9,6 +9,7 @@ defmodule Calcinator.Mixfile do
       app: :calcinator,
       build_embedded: Mix.env() == :prod,
       deps: deps(),
+      organization: "decisiv",
       description: description(),
       docs: docs(),
       elixir: "~> 1.3",
@@ -122,7 +123,11 @@ defmodule Calcinator.Mixfile do
   end
 
   defp docs do
+
+  defp docs do
     [
+      main: "readme",
+      source_url: repo_url(),
       extras: ~w(CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md LICENSE.md README.md UPGRADING.md)
     ]
   end
@@ -141,15 +146,26 @@ defmodule Calcinator.Mixfile do
     ]
   end
 
+
   defp package do
     [
       files: ["lib", "mix.exs" | extras()],
       licenses: ["Apache 2.0"],
+      maintainers: [
+        "Edipo da Silva",
+        "Julian Skinner",
+        "Luke Imhoff",
+        "Mayra Céspedes",
+        "Ryan Wojno"
+      ],
       links: %{
-        "Docs" => "https://hexdocs.pm/calcinator",
-        "Github" => "https://github.com/Decisiv/calcinator"
+        "Github" => repo_url()
       },
-      maintainers: ["Luke Imhoff"]
+      organization: "decisiv"
     ]
+  end
+
+  defp repo_url do
+    "https://github.com/Decisiv/calcinator"
   end
 end
